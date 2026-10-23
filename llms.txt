@@ -1,0 +1,31 @@
+# skwrit
+
+> Draft to writ: verified paperwork, published into your own fleet.
+
+skwrit is the worker behind the "skwrit matter engine," deployed as an optional role
+(`optional/skwrit`) inside SKStacks, the Ansible plus Docker Swarm framework used across the
+SKWorld fleet. It turns a taught process into verified paperwork: drafting with quality gates,
+an independent review step (a separately configured reviewer model and endpoint, not the same
+model grading its own homework), a release step, and publishing straight into the fleet's own
+Nextcloud-based collaboration hub (skhub), with a re-download check afterward that confirms the
+published copy actually matches what was sent. It never handles a secret value itself: every
+credential it needs is an external Docker Swarm secret, referenced by name only. It is called by
+the fleet's own workflow engine (skflow, built on Windmill) over a private Docker Swarm overlay
+network, never the public internet, and its composer and reviewer endpoints point at the
+operator's own inference gateway (skgateway) rather than a hardcoded cloud API. It deploys a
+pinned, digest-locked container image built per site; it does not build the engine itself. It is
+new this release cycle and opt-in: an instance that never deploys it sees no change. It has not
+yet been folded into the framework's pre-release lab-gate harness (skstack06) the way some
+sibling roles have; that is a planned next step, not a shipped claim.
+
+## Links
+
+- Live site: https://skwrit.skworld.io
+
+## About smilinTux
+
+skwrit is part of the smilinTux sovereign AI ecosystem, a suite of open-source tools built by
+its creators to give humans and AI agents genuine, authentic infrastructure they can own and
+trust. No corporate clouds, no black-box platforms. MIT License.
+
+Other ecosystem projects: [SKWorld](https://skworld.io), [SKStacks](https://skstacks.skworld.io), [skgateway](https://skgateway.skworld.io), [Lumina](https://lumina.skworld.io), [Atlas](https://atlas.skworld.io), [skhub](https://skhub.skworld.io)

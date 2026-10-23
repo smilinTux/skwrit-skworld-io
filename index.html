@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>skwrit · Draft to Writ, Inside Your Own Fleet 🖋️</title>
+  <meta name="description" content="skwrit turns a taught process into verified paperwork: drafting with quality gates, an independent review step, a release step, and publishing straight into your fleet's own Nextcloud hub, with a re-download check that confirms the published copy matches what was sent.">
+  <link rel="canonical" href="https://skwrit.skworld.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="skwrit · Draft to Writ, Inside Your Own Fleet">
+  <meta property="og:description" content="Drafting, independent review, release, and publishing into your fleet's own Nextcloud hub, verified by a re-download check. Part of the SKWorld sovereign AI ecosystem.">
+  <meta property="og:url" content="https://skwrit.skworld.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖋️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--amber:#c99a3b;--sage:#7fae8f;--ink:#ece4d4;--muted:rgba(236,228,212,.72);--panel:rgba(201,154,59,.05);--line:rgba(201,154,59,.30)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:radial-gradient(ellipse at top,#1a1510 0%,#0d0a07 60%);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:920px;margin:0 auto;padding:0 1.4rem}
+    .mono{font-family:'JetBrains Mono',monospace}
+    .eyebrow{color:var(--amber);letter-spacing:.18em;font-size:.8rem;text-transform:uppercase}
+    a{color:var(--sage);text-decoration:none}
+    a:hover{color:#fff}
+    header{text-align:center;padding:5rem 0 3rem}
+    .quill{font-size:4rem;line-height:1}
+    h1{font-size:3.4rem;font-weight:800;letter-spacing:.04em;margin:.6rem 0 .2rem;background:linear-gradient(90deg,#fff,var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .tag{font-size:1.3rem;color:var(--amber);font-weight:600;margin-top:.4rem}
+    .sub{color:var(--muted);font-size:1.12rem;max-width:660px;margin:1rem auto 0}
+    .badges{margin:1.8rem 0 0;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+    .badge{border:1px solid var(--line);border-radius:999px;padding:.5rem 1.05rem;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--amber);background:var(--panel);transition:all .25s}
+    .badge:hover{border-color:var(--amber);color:#fff}
+    section{padding:2.4rem 0;border-top:1px solid rgba(255,255,255,.06)}
+    h2{font-size:1.7rem;color:#fff;margin-bottom:1rem;font-weight:700}
+    h2 .n{color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:1.1rem;margin-right:.5rem}
+    p{color:var(--muted);margin-bottom:.9rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1rem}
+    .card{border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.2rem;background:rgba(255,255,255,.02)}
+    .card h3{color:var(--amber);font-size:1.05rem;margin-bottom:.4rem}
+    .card p{font-size:.95rem;margin:0}
+    .card.planned{border-style:dashed;opacity:.85}
+    .card.planned h3{color:var(--sage)}
+    ol.arts{list-style:none;counter-reset:a;margin-top:.6rem}
+    ol.arts li{counter-increment:a;border-left:2px solid var(--line);padding:.2rem 0 1rem 1.2rem;position:relative}
+    ol.arts li::before{content:counter(a);position:absolute;left:-.85rem;top:0;background:var(--amber);color:#1a1510;width:1.5rem;height:1.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.8rem}
+    ol.arts strong{color:#fff}
+    .flow{font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--sage);background:rgba(127,174,143,.06);border:1px solid rgba(127,174,143,.22);border-radius:12px;padding:1rem 1.2rem;overflow-x:auto;white-space:pre;margin-top:.6rem}
+    .cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+    .btn{border:1px solid var(--line);border-radius:10px;padding:.7rem 1.3rem;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--amber);background:var(--panel);transition:all .25s}
+    .btn:hover{border-color:var(--amber);color:#fff}
+    .btn.sg{border-color:rgba(127,174,143,.35);color:var(--sage)}
+    .btn.sg:hover{border-color:var(--sage);color:#fff}
+    .note{border-left:3px solid var(--sage);padding:.6rem 0 .6rem 1rem;background:rgba(127,174,143,.05);border-radius:0 8px 8px 0;font-size:.92rem}
+    footer{text-align:center;padding:3rem 0;color:rgba(255,255,255,.4)}
+    footer .mono{font-size:.82rem}
+    .eco{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:1.2rem 0}
+    .eco a{color:var(--muted);font-size:.85rem}
+    .eco a:hover{color:var(--amber)}
+    @media(max-width:600px){h1{font-size:2.4rem}.quill{font-size:3rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="quill">🖋️</div>
+      <div class="mono eyebrow">optional/skwrit · v1</div>
+      <h1>SKWRIT</h1>
+      <div class="tag">Draft to writ: verified paperwork, published into your own fleet.</div>
+      <p class="sub">skwrit turns a taught process into verified paperwork: drafting with quality gates, an independent review step, a release step, and publishing straight into your fleet's own Nextcloud-based collaboration hub, with a re-download check that confirms the published copy actually matches what was sent.</p>
+      <div class="badges">
+        <a class="badge" href="#what">📄 What it is</a>
+        <a class="badge" href="#why">🔒 Why this way</a>
+        <a class="badge" href="#fit">🔗 How it fits</a>
+        <a class="badge" href="https://github.com/smilinTux/skstacks/blob/main/v1/ansible/optional/skwrit/README.md" target="_blank" rel="noopener">💾 Source</a>
+        <a class="badge" href="https://skhub.skworld.io" target="_blank" rel="noopener">🗂️ skhub</a>
+        <a class="badge" href="https://skworld.io" target="_blank" rel="noopener">🐧 SKWorld</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section id="what">
+      <h2>What skwrit is</h2>
+      <p>skwrit is the worker behind the "skwrit matter engine," deployed as an optional role (<span class="mono">optional/skwrit</span>) inside SKStacks, the Ansible plus Docker Swarm framework that stands up the rest of the SKWorld fleet. It is new this release cycle, opt-in, and changes nothing for an instance that never deploys it.</p>
+      <div class="grid">
+        <div class="card"><h3>One worker, one job</h3><p>A single <span class="mono">worker</span> service, one replica, port 8080, deployed with a <span class="mono">stop-first</span> update strategy so a bad update rolls back automatically rather than leaving a half-updated pipeline running.</p></div>
+        <div class="card"><h3>/health tells the truth</h3><p>The health endpoint reports back the status of the corpus, the quality gate, and the render assets, not just "process is up."</p></div>
+        <div class="card"><h3>Pinned, not built here</h3><p>The engine's code and its "packs" (the taught-process definitions) live in a separate, private repository and ship as a container image built per site. This role deploys that image, it does not build the engine, and it refuses to run without a full <span class="mono">@sha256:</span> digest pin.</p></div>
+        <div class="card"><h3>Re-download check</h3><p>After a document is published into skhub, skwrit re-downloads its own publish to confirm the copy that landed actually matches what was sent, not just that the upload call returned success.</p></div>
+      </div>
+    </section>
+
+    <section id="why">
+      <h2>Why this is the right way to build it</h2>
+      <p>The architecture is not ornamental. Every piece exists to narrow a specific blast radius.</p>
+      <ol class="arts">
+        <li><strong>Secrets by reference, never by value.</strong> Every credential skwrit needs (a Nextcloud account password, its own worker bearer token, a vector-store access key) is an external Docker Swarm secret, referenced by name only. The Ansible play that deploys it refuses to even start if a referenced secret, or its required network, is missing. The deployment automation that configures the worker is never the thing holding the credential.</li>
+        <li><strong>Independent review by design.</strong> The reviewer model and endpoint are configured separately from the composer model and endpoint (<span class="mono">REVIEW_MODEL</span> / <span class="mono">REVIEW_URL</span> versus <span class="mono">MODEL</span> / <span class="mono">MODEL_URL</span>). Drafting and review are two distinct configured steps in the pipeline, not one model checking its own homework by default.</li>
+        <li><strong>Calls your own infrastructure, not a cloud SaaS.</strong> skwrit publishes into your fleet's own self-hosted Nextcloud (skhub), can use your fleet's own vector store and embeddings endpoints, and is itself called by your fleet's own workflow engine over a private, internal Docker Swarm overlay network, never over the public internet. The worker is reached at a private Swarm DNS name, not a public URL.</li>
+        <li><strong>Reproducible, vault-driven, and digest-pinned.</strong> It deploys through the same Ansible pattern as every other service in the fleet, per environment (dev, staging, prod), with the same naming, resource-limit, logging, and healthcheck conventions as its sibling roles, rather than a bespoke one-off deployment.</li>
+        <li><strong>State lives outside the container.</strong> Its database and private render assets sit on an external, named volume, so redeploying the worker does not touch its data.</li>
+      </ol>
+    </section>
+
+    <section id="fit">
+      <h2>How it fits the workflow</h2>
+      <p>skwrit sits between three other SKWorld pieces: your fleet's workflow engine (<span class="mono">skflow</span>, built on Windmill, which calls the worker directly over the private overlay to drive a draft, review, publish pipeline as a taught process), your fleet's own Nextcloud-based collaboration hub (<a href="https://skhub.skworld.io" target="_blank" rel="noopener">skhub</a>, where the finished, reviewed document is actually published, readable afterward through the same web, desktop-sync, and mobile clients everyone already uses), and your fleet's own model-serving layer (the composer and reviewer endpoints point at your operator's own inference gateway, <a href="https://skgateway.skworld.io" target="_blank" rel="noopener">skgateway</a>, rather than a hardcoded cloud API).</p>
+      <div class="flow">draft  ->  quality gate  ->  independent review  ->  release
+  ->  publish into skhub  ->  re-download check (does it match?)</div>
+      <p style="margin-top:1rem">The name plays on the idea of a writ: a formal, binding, executed document. skwrit is a process that goes from draft to a reviewed, released, published piece of paperwork, not a chatbot that free-writes.</p>
+    </section>
+
+    <section id="status">
+      <h2>What's real today, what's planned</h2>
+      <div class="grid">
+        <div class="card"><h3>Real today</h3><p>The deploy role, its render tests (a real Ansible test suite covering defaults, every configuration knob, naming, and every refusal path), the secrets-by-reference model, the independent reviewer configuration split, the <span class="mono">/health</span> endpoint, and an optional Nextcloud MCP service, also digest-pinned, letting AI tooling interact with the Nextcloud side of the pipeline through a standard tool-calling interface.</p></div>
+        <div class="card planned"><h3>Planned, not yet shipped</h3><p>Unlike some of its sibling roles (skhub, for example), skwrit has not yet been folded into the framework's own pre-release lab-gate harness (skstack06) that exercises other roles end to end against a disposable live stack before each release. That is a natural next step for this role, but it is not yet true today.</p></div>
+      </div>
+      <p class="note">If you see a claim elsewhere that skwrit is already lab-gated, that is wrong for this release. The lab-gate claim belongs to skhub, not skwrit, today.</p>
+    </section>
+
+    <section id="source">
+      <h2>Read the source</h2>
+      <p>skwrit's facts live in the actual role, not in a pitch. Start with the README that this page is grounded in, then the framework it deploys into.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/smilinTux/skstacks/blob/main/v1/ansible/optional/skwrit/README.md" target="_blank" rel="noopener">skwrit role README</a>
+        <a class="btn sg" href="https://github.com/smilinTux/skstacks" target="_blank" rel="noopener">SKStacks framework</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="tag" style="font-size:1.05rem">Draft to writ, inside your own fleet.</div>
+      <div class="eco">
+        <a href="https://skworld.io" target="_blank" rel="noopener">SKWorld</a>
+        <a href="https://skstacks.skworld.io" target="_blank" rel="noopener">SKStacks</a>
+        <a href="https://skgateway.skworld.io" target="_blank" rel="noopener">skgateway</a>
+        <a href="https://lumina.skworld.io" target="_blank" rel="noopener">Lumina</a>
+        <a href="https://atlas.skworld.io" target="_blank" rel="noopener">Atlas</a>
+        <a href="https://skhub.skworld.io" target="_blank" rel="noopener">skhub</a>
+      </div>
+      <p class="mono" style="margin-top:1rem">part of the SKWorld sovereign AI ecosystem 🐧 · built by <a href="https://github.com/smilinTux" target="_blank" rel="noopener">smilinTux</a> · <a href="https://github.com/smilinTux/skwrit-skworld-io/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></p>
+    </div>
+  </footer>
+</body>
+</html>
