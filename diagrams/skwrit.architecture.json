@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "skwrit Component Map",
+    "subtitle": "The skwrit matter engine worker as an optional SKStacks role: what calls it, what it depends on, and where it publishes",
+    "output": "skwrit.architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "secrets", "type": "security", "label": "Docker Swarm secrets", "sublabel": "credentials referenced by name only", "pos": [40, 110], "size": [170, 64] },
+    { "id": "skflow", "type": "backend", "label": "skflow (Windmill)", "sublabel": "fleet workflow engine", "pos": [40, 300], "size": [170, 64] },
+    { "id": "volume", "type": "database", "label": "Named external volume", "sublabel": "engine database and render assets", "pos": [40, 470], "size": [170, 64] },
+    { "id": "worker", "type": "backend", "label": "skwrit worker", "sublabel": "one replica, port 8080, /health", "pos": [320, 300], "size": [170, 64], "tag": "digest-pinned image" },
+    { "id": "mcp", "type": "backend", "label": "Nextcloud MCP service", "sublabel": "optional tool-calling interface", "pos": [320, 470], "size": [170, 64], "tag": "optional" },
+    { "id": "skgateway", "type": "backend", "label": "skgateway", "sublabel": "operator-owned inference gateway", "pos": [620, 110], "size": [170, 64] },
+    { "id": "skhub", "type": "external", "label": "skhub (Nextcloud)", "sublabel": "fleet collaboration hub, publish target", "pos": [620, 300], "size": [170, 64] }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "optional/skwrit role: private Docker Swarm overlay network, never the public internet", "wraps": ["secrets", "skflow", "volume", "worker", "mcp"] },
+    { "kind": "region", "label": "Fleet-owned services", "wraps": ["skgateway", "skhub"] }
+  ],
+  "connections": [
+    { "id": "skflow-drives-worker", "from": "skflow", "to": "worker", "label": "drives draft, review, publish", "variant": "emphasis" },
+    { "id": "secrets-to-worker", "from": "secrets", "to": "worker", "label": "mounted by name", "variant": "security" },
+    { "id": "worker-to-volume", "from": "worker", "to": "volume", "label": "state outside the container", "variant": "default" },
+    { "id": "worker-to-skgateway", "from": "worker", "to": "skgateway", "label": "composer and reviewer endpoints, configured separately", "variant": "default" },
+    { "id": "worker-to-skhub", "from": "worker", "to": "skhub", "label": "publish, then re-download check", "variant": "emphasis" },
+    { "id": "mcp-to-skhub", "from": "mcp", "to": "skhub", "label": "AI tooling reaches the Nextcloud side", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Pipeline", "items": ["draft -> quality gate -> independent review -> release -> publish into skhub -> re-download check", "The reviewer model and endpoint are configured separately from the composer, so one model never grades its own homework by default"] },
+    { "dot": "emerald", "title": "Deployment", "items": ["Optional SKStacks role (optional/skwrit): one worker replica, port 8080, stop-first updates", "Deploys a pinned container image built per site and refuses to run without a full @sha256 digest", "/health reports the corpus, the quality gate, and the render assets, not just process up"] },
+    { "dot": "rose", "title": "Boundaries", "items": ["Every credential is an external Docker Swarm secret, referenced by name only", "Called by skflow over a private overlay network, never over the public internet", "Optional vector store and embeddings endpoints stay fleet-owned", "Not yet folded into the skstack06 lab gate; that is planned, not shipped"] }
+  ]
+}
