@@ -89,6 +89,7 @@
         <a class="badge" href="#what">📄 What it is</a>
         <a class="badge" href="#why">🔒 Why this way</a>
         <a class="badge" href="#fit">🔗 How it fits</a>
+        <a class="badge" href="#architecture">🗺️ Architecture</a>
         <a class="badge" href="https://github.com/smilinTux/skstacks/blob/main/v1/ansible/optional/skwrit/README.md" target="_blank" rel="noopener">💾 Source</a>
         <a class="badge" href="https://skhub.skworld.io" target="_blank" rel="noopener">🗂️ skhub</a>
         <a class="badge" href="https://skworld.io" target="_blank" rel="noopener">🐧 SKWorld</a>
@@ -126,6 +127,14 @@
       <div class="flow">draft  ->  quality gate  ->  independent review  ->  release
   ->  publish into skhub  ->  re-download check (does it match?)</div>
       <p style="margin-top:1rem">The name plays on the idea of a writ: a formal, binding, executed document. skwrit is a process that goes from draft to a reviewed, released, published piece of paperwork, not a chatbot that free-writes.</p>
+    </section>
+
+    <section id="architecture">
+      <h2>Architecture</h2>
+      <p>An interactive component map of the role, derived from what this page describes: the worker, the workflow engine that calls it, the secrets and volume it depends on, and the fleet services it draws models from and publishes into. It is a standalone, self-contained HTML page with a dark/light toggle, and it opens in a new tab.</p>
+      <div class="cta">
+        <a class="btn" href="diagrams/skwrit.architecture.html" target="_blank" rel="noopener">Open the interactive version ↗</a>
+      </div>
     </section>
 
     <section id="status">
